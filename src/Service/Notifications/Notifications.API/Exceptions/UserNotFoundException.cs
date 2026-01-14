@@ -1,4 +1,4 @@
-﻿namespace Users.API.Exceptions; 
+﻿namespace Notifications.API.Exceptions; 
 
 public class UserNotFoundException : Exception
 {

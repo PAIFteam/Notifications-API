@@ -1,4 +1,4 @@
-﻿namespace Users.Core.Application.Commons;
+﻿namespace Notifications.Core.Application.Commons;
 
 public abstract class BaseMessage<TMessage>(Guid correlationId)
 {

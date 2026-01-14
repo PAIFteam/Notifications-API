@@ -1,6 +1,8 @@
-using Users.API.Extensions;
-using Users.Infra.Extensions;
+using Notifications.API.Extensions;
+using Notifications.Infra.Extensions;
+using Notifications.Infra.RabbitMq.Consumer.Messages;
 using System.Text;
+using Notifications.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +28,7 @@ var key = Encoding.ASCII.GetBytes("abc123");
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfraestructure();
+builder.Services.AddConsumer(builder.Configuration);
 
 var app = builder.Build();
 

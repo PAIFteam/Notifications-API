@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Users.Core.Domain.Entities.Base
+namespace Notifications.Core.Domain.Entities.Base
 {
     public class OutPutBase
     {

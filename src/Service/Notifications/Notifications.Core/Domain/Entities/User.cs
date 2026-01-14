@@ -1,4 +1,4 @@
-﻿namespace Users.Core.Domain.Entities
+﻿namespace Notifications.Core.Domain.Entities
 {
     public class User
     {
