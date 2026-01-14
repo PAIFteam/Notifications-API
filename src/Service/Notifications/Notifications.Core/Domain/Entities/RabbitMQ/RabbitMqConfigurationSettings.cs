@@ -9,7 +9,7 @@ namespace Notifications.Core.Domain.Entities.RabbitMQ
 {
     public class RabbitMqConfigurationSettings
     {
-        public const string OPTION_KEY = "RabbitMqSettings";
+        public const string OPTION_KEY = "RabbitSettings";
 
         public string HostName { get; set; }
         public string Username { get; set; }
@@ -17,7 +17,7 @@ namespace Notifications.Core.Domain.Entities.RabbitMQ
         public List<int> RedeliveryInSeconds { get; set; }
         public List<int> RetryInSeconds { get; set; }
         public string QueueName { get; set; }
-        public string SchedulerQueueName { get; set; }
+        public string ScheduleQueueName { get; set; }
         public bool StartConsumer { get; set; } = false;
 
          public Uri GetQueueAdress() => new Uri($"amqp://{Username}:{Password}@{HostName}:5672/{QueueName}");

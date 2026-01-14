@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Users.Infra.Extensions
+namespace Notifications.Infra.Extensions
 {
     public static class ServiceCollectionExtensions
     {

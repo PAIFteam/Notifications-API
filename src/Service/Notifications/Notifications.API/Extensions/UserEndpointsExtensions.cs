@@ -1,5 +1,5 @@
 
-namespace Users.API.Extensions
+namespace Notifications.API.Extensions
 {
     public static class UserEndpointsExtensions
     {

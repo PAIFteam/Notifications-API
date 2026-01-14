@@ -1,4 +1,4 @@
-﻿namespace Users.API.Enums;
+﻿namespace Notifications.API.Enums;
 
 public enum EnumProfile
 {

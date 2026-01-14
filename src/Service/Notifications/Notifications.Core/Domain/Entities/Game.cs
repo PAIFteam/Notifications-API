@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Users.Core.Domain.Entities
+namespace Notifications.Core.Domain.Entities
 {
     internal class Game
     {
