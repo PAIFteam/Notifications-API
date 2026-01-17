@@ -14,8 +14,6 @@
     <Folder Include="Application\UseCases\Promotions\" />
     <Folder Include="Application\UseCases\Users\" />
     <Folder Include="Domain\Azure\" />
-    <Folder Include="Domain\Interfaces\" />
-    <Folder Include="Domain\Models\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MediatR" Version="13.0.0" />

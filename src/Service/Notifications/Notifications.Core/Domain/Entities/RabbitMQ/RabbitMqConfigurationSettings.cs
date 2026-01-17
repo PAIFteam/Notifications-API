@@ -17,9 +17,11 @@ namespace Notifications.Core.Domain.Entities.RabbitMQ
         public List<int> RedeliveryInSeconds { get; set; }
         public List<int> RetryInSeconds { get; set; }
         public string QueueName { get; set; }
+        public string QueueNamePaymentProcessedEvent { get; set; }
         public string ScheduleQueueName { get; set; }
         public bool StartConsumer { get; set; } = false;
 
-         public Uri GetQueueAdress() => new Uri($"amqp://{Username}:{Password}@{HostName}:5672/{QueueName}");
+        public Uri GetQueueAdress() => new Uri($"amqp://{Username}:{Password}@{HostName}:5672/{QueueName}");
+        public Uri GetQueueAdressPaymentProcessedEvent() => new Uri($"amqp://{Username}:{Password}@{HostName}:5672/{QueueNamePaymentProcessedEvent}");
     }
 }

@@ -27,7 +27,7 @@ var key = Encoding.ASCII.GetBytes("abc123");
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfraestructure();
-builder.Services.AddConsumer(builder.Configuration);
+builder.Services.AddRabbitMq(builder.Configuration);
 
 var app = builder.Build();
 

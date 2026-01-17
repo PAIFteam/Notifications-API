@@ -5,12 +5,13 @@ using MassTransit;
 using MassTransit.MultiBus;
 using Microsoft.Extensions.DependencyInjection;
 using Users.Core.Entities.RabbitMq;
+using Notifications.Core.Entities.RabbitMq;
 
 namespace Notifications.API.Extensions
 {
     public static class RabbitConsumerConfiguration
     {
-            public static IServiceCollection AddConsumer(this IServiceCollection services, IConfiguration configuration)
+            public static IServiceCollection AddRabbitMq(this IServiceCollection services, IConfiguration configuration)
             {
                 var rabbitSettings = new RabbitMqConfigurationSettings();
 
@@ -33,6 +34,7 @@ namespace Notifications.API.Extensions
             services.AddMassTransit<IBus>(_ =>
             {
                 _.AddConsumer<WelcomeCustomerConsumer>();
+                _.AddConsumer<PaymentProcessedEventConsumer>();
 
 
                 _.UsingRabbitMq((context, configure) =>
@@ -49,60 +51,14 @@ namespace Notifications.API.Extensions
                        
                         e.ConfigureConsumer<WelcomeCustomerConsumer>(context);
                     });
+                    configure.ReceiveEndpoint(rabbitSettings.QueueNamePaymentProcessedEvent, e =>
+                    {
+
+                        e.ConfigureConsumer<PaymentProcessedEventConsumer>(context);
+                    });
                 });
-
-
-                //_.AddBus(context => Bus.Factory.CreateUsingRabbitMq(configure =>
-                //{
-                //    var rabbitUri = new Uri($"rabbitmq://{rabbitSettings.Username}:{rabbitSettings.Password}@{rabbitSettings.HostName}:5672"); ///{rabbitSettings.QueueName}
-
-                //    configure.Host(rabbitUri, h =>
-                //    {   
-                //    });
-
-                //    configure.UseCircuitBreaker(CorrelatedBy =>
-                //    {
-                //        CorrelatedBy.TrackingPeriod = TimeSpan.FromMinutes(1);
-                //        CorrelatedBy.TripThreshold = 15;
-                //        CorrelatedBy.ActiveThreshold = 10;
-                //        CorrelatedBy.ResetInterval = TimeSpan.FromMinutes(5);
-                //    });
-
-                //    configure.UseInMemoryScheduler(rabbitSettings.ScheduleQueueName);
-
-                //    configure.ReceiveEndpoint(rabbitSettings.QueueName, configureEndpoint =>
-                //    {
-                //        //var redeliveryIntervals = GetIntervals(rabbitSettings.RedeliveryInSeconds);
-                //        //var retryIntervals = GetIntervals(rabbitSettings.RetryInSeconds);
-
-                //        //if(!Equals(redeliveryIntervals, null) && redeliveryIntervals.Any())
-                //        //{
-                //        //    configureEndpoint.UseScheduledRedelivery(r => r.Intervals(redeliveryIntervals));
-                //        //}
-
-                //        //if (!Equals(redeliveryIntervals, null) && retryIntervals.Any())
-                //        //{
-                //        //    configureEndpoint.UseMessageRetry(r => r.Intervals(retryIntervals));
-                            
-                //        //}
-
-                //        configureEndpoint.Consumer<WelcomeCustomerConsumer>(context);
-                //    });
-
-                //    //configure.useHealthCheck(context);
-                //}));
             });
         }
-        private static TimeSpan[] GetIntervals(List<int> intervals)
-        {
-            if (Equals(intervals,null))
-            {
-                return new TimeSpan[0];
-            }
-
-            var nonZeroIntervals = intervals.Where(interval =>!Equals(interval,0));
-
-            return nonZeroIntervals.Select(interval => TimeSpan.FromSeconds(interval)).ToArray();
-        }
+        
     }
 }
