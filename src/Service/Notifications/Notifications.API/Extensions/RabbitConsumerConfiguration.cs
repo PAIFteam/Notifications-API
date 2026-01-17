@@ -1,11 +1,10 @@
 ﻿
 using Notifications.Core.Domain.Entities.RabbitMQ;
-using Notifications.Infra.RabbitMq.Consumer;
 using GreenPipes;
 using MassTransit;
 using MassTransit.MultiBus;
 using Microsoft.Extensions.DependencyInjection;
-
+using Users.Core.Entities.RabbitMq;
 
 namespace Notifications.API.Extensions
 {
@@ -47,7 +46,8 @@ namespace Notifications.API.Extensions
 
                     configure.ReceiveEndpoint(rabbitSettings.QueueName, e =>
                     {
-                        e.Consumer<WelcomeCustomerConsumer>(context);
+                       
+                        e.ConfigureConsumer<WelcomeCustomerConsumer>(context);
                     });
                 });
 

@@ -1,8 +1,7 @@
 using Notifications.API.Extensions;
 using Notifications.Infra.Extensions;
-using Notifications.Infra.RabbitMq.Consumer.Messages;
 using System.Text;
-using Notifications.API.Extensions;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

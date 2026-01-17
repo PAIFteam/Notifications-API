@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Notifications.Infra.RabbitMq.Consumer.Messages;
 
-namespace Notifications.Infra.RabbitMq.Consumer
+namespace Users.Core.Entities.RabbitMq
 {
     public class WelcomeCustomerConsumer: IConsumer<WelcomeCustomerMessage>
     {

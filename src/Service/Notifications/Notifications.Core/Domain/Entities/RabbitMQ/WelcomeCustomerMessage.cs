@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Notifications.Core.Entities.RabbitMq
+namespace Users.Core.Entities.RabbitMq
 {
     public class WelcomeCustomerMessage
     {
