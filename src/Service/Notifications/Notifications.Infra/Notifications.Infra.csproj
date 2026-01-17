@@ -29,8 +29,4 @@
     <ProjectReference Include="..\Notifications.Core\Notifications.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="RabbitMq\Consumer\Messages\" />
-  </ItemGroup>
-
 </Project>
