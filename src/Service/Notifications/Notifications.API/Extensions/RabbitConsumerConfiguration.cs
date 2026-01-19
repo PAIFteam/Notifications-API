@@ -48,17 +48,55 @@ namespace Notifications.API.Extensions
 
                     configure.ReceiveEndpoint(rabbitSettings.QueueName, e =>
                     {
-                       
+                        var redeliveryIntervals = GetIntervals(rabbitSettings.RedeliveryInSeconds);
+                        var retryIntervals = GetIntervals(rabbitSettings.RetryInSeconds);
+
+                        if (!Equals(redeliveryIntervals, null) && redeliveryIntervals.Any())
+                        {
+                            e.UseScheduledRedelivery(r => r.Intervals(redeliveryIntervals));
+                        }
+
+                        if (!Equals(redeliveryIntervals, null) && retryIntervals.Any())
+                        {
+                            e.UseMessageRetry(r => r.Intervals(retryIntervals));
+
+                        }
                         e.ConfigureConsumer<WelcomeCustomerConsumer>(context);
                     });
                     configure.ReceiveEndpoint(rabbitSettings.QueueNamePaymentProcessedEvent, e =>
                     {
+                        var redeliveryIntervals = GetIntervals(rabbitSettings.RedeliveryInSeconds);
+                        var retryIntervals = GetIntervals(rabbitSettings.RetryInSeconds);
+
+                        if (!Equals(redeliveryIntervals, null) && redeliveryIntervals.Any())
+                        {
+                            e.UseScheduledRedelivery(r => r.Intervals(redeliveryIntervals));
+                        }
+
+                        if (!Equals(redeliveryIntervals, null) && retryIntervals.Any())
+                        {
+                            e.UseMessageRetry(r => r.Intervals(retryIntervals));
+
+                        }
 
                         e.ConfigureConsumer<PaymentProcessedEventConsumer>(context);
                     });
                 });
             });
         }
-        
+        private static TimeSpan[] GetIntervals(List<int> intervals)
+        {
+            if (Equals(intervals, null))
+            {
+                return new TimeSpan[0];
+            }
+
+            var nonZeroIntervals = intervals.Where(interval => !Equals(interval, 0));
+
+            return nonZeroIntervals.Select(interval => TimeSpan.FromSeconds(interval)).ToArray();
+
+
+        }
+
     }
 }
