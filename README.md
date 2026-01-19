@@ -1,4 +1,4 @@
-# Notifications Service
+# Notifications API
 
 > Microserviço responsável por **processar e orquestrar notificações** de forma assíncrona usando **RabbitMQ + MassTransit**, seguindo boas práticas de arquitetura, isolamento de responsabilidades e escalabilidade.
 
