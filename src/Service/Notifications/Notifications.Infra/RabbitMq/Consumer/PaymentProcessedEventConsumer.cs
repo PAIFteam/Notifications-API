@@ -17,12 +17,9 @@ namespace Notifications.Core.Entities.RabbitMq
         }
         public async Task Consume(ConsumeContext<PaymentProcessedMessage> context)
         {
-
-            // Lógica para efetivar o envio de E-mail com o resultado do Pagamento
             Console.WriteLine($"SIMULAR E-mail com o resultado do processamento do Pagamento do e-mail, IdUser {context.Message.IdUser} " +
                 $" IdGame ({context.Message.IdGame}) e Price {context.Message.Price.ToString()}" +
                 $" Aprovado ({context.Message.Aproved}) e Mensagem {context.Message.Message}");
-
             
             await Task.CompletedTask;
         }

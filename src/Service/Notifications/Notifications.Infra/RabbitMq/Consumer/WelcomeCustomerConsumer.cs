@@ -12,9 +12,7 @@ namespace Users.Core.Entities.RabbitMq
         public async Task Consume(ConsumeContext<WelcomeCustomerMessage> context)
         {
             var message = context.Message;
-            // Lógica para enviar notificação de boas-vindas ao cliente
             Console.WriteLine($"Enviando notificação de boas-vindas para {message.Name} ({message.Email}) com login {message.Login}");
-            // Simulação de envio de e-mail ou outra ação
             await Task.CompletedTask;
         }
         public WelcomeCustomerConsumer() 
