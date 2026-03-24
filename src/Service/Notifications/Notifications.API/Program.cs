@@ -35,23 +35,15 @@ if (!app.Environment.IsProduction())
 {
     app.UseSwagger(c =>
     {
-    c.PreSerializeFilters.Add((swagger, httpReq) =>
-    {
-        var scheme = httpReq.Headers["X-Forwarded-Proto"].FirstOrDefault() ?? httpReq.Scheme;
-        var host = httpReq.Headers["X-Forwarded-Host"].FirstOrDefault() ?? httpReq.Host.Value;
-
-        var prefix = httpReq.Headers["X-Forwarded-Prefix"].FirstOrDefault();
-
-        // fallback se não vier do ingress
-        if (string.IsNullOrWhiteSpace(prefix))
+        c.PreSerializeFilters.Add((swagger, httpReq) =>
         {
-            prefix = "/notifications";
-        }
-
-        swagger.Servers = new List<Microsoft.OpenApi.Models.OpenApiServer>
-        {
-            new() { Url = $"{scheme}://{host}{prefix}" }
-        };
+            var scheme = httpReq.Headers["X-Forwarded-Proto"].FirstOrDefault() ?? httpReq.Scheme;
+            var host = httpReq.Headers["X-Forwarded-Host"].FirstOrDefault() ?? httpReq.Host.Value;
+    
+            swagger.Servers = new List<Microsoft.OpenApi.Models.OpenApiServer>
+            {
+                new() { Url = $"{scheme}://{host}/notifications" }
+            };
         });
     });
     app.UseSwaggerUI(c =>
